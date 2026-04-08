@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 from shiboken6 import wrapInstance
 
 
@@ -22,7 +22,7 @@ class BuildingWin(QtWidgets.QDialog):
 
     def build_tree(self):
         self.building.building_height = self.building_height_dspnbx.value()
-        self.building.building_levels = self.building_levels_spnbx.value()
+        self.building.building_levels = self.building_levels_slider.value()
         self.building.generate_building()
 
     def _connect_signals(self):
@@ -39,11 +39,13 @@ class BuildingWin(QtWidgets.QDialog):
     def _mk_building_option_ui(self):
         self.building_levels_layout = QtWidgets.QHBoxLayout()
         self.building_levels_lbl = QtWidgets.QLabel("Building Levels")
-        self.building_levels_spnbx = QtWidgets.QSpinBox()
-        self.building_levels_spnbx.setMinimumWidth(50)
-        self.building_levels_spnbx.setValue(3)
+        self.building_levels_slider = QtWidgets.QSlider()
+        self.building_levels_slider.setOrientation(QtCore.Qt.Orientation.Horizontal)
+        self.building_levels_slider.setMaximum(3)
+        self.building_levels_slider.setMinimumWidth(50)
+        self.building_levels_slider.setValue(3)
         self.building_levels_layout.addWidget(self.building_levels_lbl)
-        self.building_levels_layout.addWidget(self.building_levels_spnbx)
+        self.building_levels_layout.addWidget(self.building_levels_slider)
         self.main_layout.addLayout(self.building_levels_layout)
 
     def _mk_building_height_ui(self):
@@ -51,8 +53,8 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_height_lbl = QtWidgets.QLabel("Building Height")
         self.building_height_dspnbx = QtWidgets.QDoubleSpinBox()
         self.building_height_dspnbx.setMinimumWidth(50)
-        self.building_height_dspnbx.setValue(1.0)
-        self.building_height_dspnbx.setSingleStep(0.1)
+        self.building_height_dspnbx.setValue(5.0)
+        self.building_height_dspnbx.setSingleStep(1.0)
         self.building_height_layout.addWidget(self.building_height_lbl)
         self.building_height_layout.addWidget(self.building_height_dspnbx)
         self.main_layout.addLayout(self.building_height_layout)  # Directs the Dialog Window to use the main layout
@@ -92,8 +94,8 @@ class Building():
         for level in range(self.building_levels):
             # create cubes
             cube_name = cmds.polyCube(height=self.levels_height,
-                                      depth=self.building_length + 0.5,
-                                      width=self.building_width + 0.5,
+                                      depth=self.building_length + 0.5 / self.building_length,
+                                      width=self.building_width + 0.5 / self.building_height,
                                       name="cube")[0]
             cmds.xform(cube_name, translation=[0, self.levels_height / 2.0, 0])
             self._freeze_transforms(cube_name)
