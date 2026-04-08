@@ -39,13 +39,19 @@ class BuildingWin(QtWidgets.QDialog):
     def _mk_building_option_ui(self):
         self.building_levels_layout = QtWidgets.QHBoxLayout()
         self.building_levels_lbl = QtWidgets.QLabel("Building Levels")
+
         self.building_levels_slider = QtWidgets.QSlider()
         self.building_levels_slider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.building_levels_slider.setMaximum(3)
         self.building_levels_slider.setMinimumWidth(50)
         self.building_levels_slider.setValue(3)
+
+        self.building_levels_slider_lbl = QtWidgets.QSpinBox()
+        self.building_levels_slider_lbl.setMaximum(3)
+
         self.building_levels_layout.addWidget(self.building_levels_lbl)
         self.building_levels_layout.addWidget(self.building_levels_slider)
+        self.building_levels_layout.addWidget(self.building_levels_slider_lbl)
         self.main_layout.addLayout(self.building_levels_layout)
 
     def _mk_building_height_ui(self):
