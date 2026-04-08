@@ -29,6 +29,9 @@ class BuildingWin(QtWidgets.QDialog):
         self.build_btn.clicked.connect(self.build_tree)
         self.cancel_btn.clicked.connect(self.close)
 
+        self.building_levels_slider.valueChanged.connect(self.building_levels_slider_lbl.setValue)
+        self.building_levels_slider_lbl.valueChanged.connect(self.building_levels_slider.setValue)
+
     def _mk_main_layout(self):
         self.main_layout = QtWidgets.QVBoxLayout()  # Creates our vertical box layout.
         self._mk_building_height_ui()
@@ -47,6 +50,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_levels_slider.setValue(3)
 
         self.building_levels_slider_lbl = QtWidgets.QSpinBox()
+        self.building_levels_slider_lbl.setValue(3)
         self.building_levels_slider_lbl.setMaximum(3)
 
         self.building_levels_layout.addWidget(self.building_levels_lbl)
