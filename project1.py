@@ -20,7 +20,7 @@ class BuildingWin(QtWidgets.QDialog):
         self._mk_main_layout()
         self._connect_signals()
 
-    def build_tree(self):
+    def build_building(self):
         self.building.building_height = self.building_height_dspnbx.value()
         self.building.building_levels = self.building_levels_slider.value()
         self.building.generate_building()
@@ -85,8 +85,11 @@ class Building():
     levels_height = 1
 
     def generate_building(self):
-        self.generate_base()
-        self.generate_levels()
+        grp_objs = []
+        grp_objs.append(self.generate_trunk())
+        grp_objs.append(self.generate_canopy())
+        tree_grp = cmds.group(grp_objs, name="tree")
+        self._set_pivot_to_origin(tree_grp)
 
     def generate_base(self):
         building_name = cmds.polyCube(height=self.building_height,
@@ -127,6 +130,8 @@ class Building():
 
     def _set_pivot_to_origin(self, obj_name):
         cmds.xform(obj_name, pivots=[0, 0, 0])
+
+
 
 
 if "__main__" == __name__:
