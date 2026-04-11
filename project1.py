@@ -26,7 +26,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building.generate_building()
 
     def _connect_signals(self):
-        self.build_btn.clicked.connect(self.build_tree)
+        self.build_btn.clicked.connect(self.build_building)
         self.cancel_btn.clicked.connect(self.close)
 
         self.building_levels_slider.valueChanged.connect(self.building_levels_slider_lbl.setValue)
@@ -86,10 +86,11 @@ class Building():
 
     def generate_building(self):
         grp_objs = []
-        grp_objs.append(self.generate_trunk())
-        grp_objs.append(self.generate_canopy())
-        tree_grp = cmds.group(grp_objs, name="tree")
-        self._set_pivot_to_origin(tree_grp)
+        grp_objs.append(self.generate_base())
+        grp_objs.append(self.generate_levels())
+        bldg_grp = cmds.group(grp_objs, name="building")
+        print(bldg_grp)
+        self._set_pivot_to_origin(bldg_grp)
 
     def generate_base(self):
         building_name = cmds.polyCube(height=self.building_height,
@@ -101,6 +102,7 @@ class Building():
                    translation=[0, self.building_height / 2.0, 0])
         self._freeze_transforms(building_name)
         self._set_pivot_to_origin(building_name)
+        return building_name
 
     def generate_levels(self):
         cube_names = []
@@ -123,6 +125,7 @@ class Building():
         grp_name = cmds.group(cube_names, name="levels")
         # move canopy pivot to bottom
         self._set_pivot_to_origin(grp_name)
+        return grp_name
 
     def _freeze_transforms(self, obj):
         cmds.makeIdentity(obj, apply=True, translate=True, rotate=True,
@@ -132,12 +135,11 @@ class Building():
         cmds.xform(obj_name, pivots=[0, 0, 0])
 
 
-
-
 if "__main__" == __name__:
-    # building1 = Building()
+    building1 = Building()
     # building1.building_height = 7
     # building1.generate_base()
     # building1.generate_levels()
-    w = BuildingWin()
-    w.show()
+    building1.generate_building()
+    # w = BuildingWin()
+    # w.show()
