@@ -2,6 +2,7 @@ import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
 from shiboken6 import wrapInstance
+import random
 
 
 def get_maya_main_win():
@@ -35,11 +36,12 @@ class BuildingWin(QtWidgets.QDialog):
     def _mk_main_layout(self):
         self.main_layout = QtWidgets.QVBoxLayout()  # Creates our vertical box layout.
         self._mk_building_height_ui()
-        self._mk_building_option_ui()
+        self._mk_building_width_ui()
+        self._mk_building_levels_ui()
         self._mk_buttons_layout()
         self.setLayout(self.main_layout)
 
-    def _mk_building_option_ui(self):
+    def _mk_building_levels_ui(self):
         self.building_levels_layout = QtWidgets.QHBoxLayout()
         self.building_levels_lbl = QtWidgets.QLabel("Building Levels")
 
@@ -68,6 +70,17 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_height_layout.addWidget(self.building_height_lbl)
         self.building_height_layout.addWidget(self.building_height_dspnbx)
         self.main_layout.addLayout(self.building_height_layout)  # Directs the Dialog Window to use the main layout
+
+    def _mk_building_width_ui(self):
+        self.building_width_layout = QtWidgets.QHBoxLayout()
+        self.building_width_lbl = QtWidgets.QLabel("Building Width")
+        self.building_width_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.building_width_dspnbx.setMinimumWidth(50)
+        self.building_width_dspnbx.setValue(3.0)
+        self.building_width_dspnbx.setSingleStep(1.0)
+        self.building_width_layout.addWidget(self.building_width_lbl)
+        self.building_width_layout.addWidget(self.building_width_dspnbx)
+        self.main_layout.addLayout(self.building_width_layout)
 
     def _mk_buttons_layout(self):
         self.build_btn = QtWidgets.QPushButton("Build")
@@ -109,8 +122,8 @@ class Building():
         for level in range(self.building_levels):
             # create cubes
             cube_name = cmds.polyCube(height=self.levels_height,
-                                      depth=self.building_length + 0.5 / self.building_length,
-                                      width=self.building_width + 0.5 / self.building_height,
+                                      depth=self.building_length + 0.3,
+                                      width=self.building_width + 0.3,
                                       name="cube")[0]
             cmds.xform(cube_name, translation=[0, self.levels_height / 2.0, 0])
             self._freeze_transforms(cube_name)
@@ -127,6 +140,9 @@ class Building():
         self._set_pivot_to_origin(grp_name)
         return grp_name
 
+    def generate_windows(self):
+        pass
+
     def _freeze_transforms(self, obj):
         cmds.makeIdentity(obj, apply=True, translate=True, rotate=True,
                           scale=True, normal=False, preserveNormals=True)
@@ -136,10 +152,9 @@ class Building():
 
 
 if "__main__" == __name__:
-    building1 = Building()
     # building1.building_height = 7
     # building1.generate_base()
     # building1.generate_levels()
-    building1.generate_building()
     # w = BuildingWin()
     # w.show()
+    pass
