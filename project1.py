@@ -136,8 +136,8 @@ class Building():
         for level in range(self.building_levels):
             # create cubes
             cube_name = cmds.polyCube(height=self.levels_height,
-                                      depth=self.building_length + 0.3,
-                                      width=self.building_width + 0.3,
+                                      depth=self.building_length + 0.5,
+                                      width=self.building_width + 0.5,
                                       name="cube")[0]
             cmds.xform(cube_name, translation=[0, self.levels_height / 2.0, 0])
             self._freeze_transforms(cube_name)
@@ -155,8 +155,13 @@ class Building():
         return grp_name
 
     def generate_windows(self):
-        # determine amount of windows based on building_levels
-        # create cube
+        # create cubes
+    # for window in range(self.building_levels):
+        cube_name = cmds.polyCube(height=0.3,
+                                  depth=self.building_height / self.building_levels,
+                                  width=0.3,
+                                  name="cube")[0]
+        cmds.xform(cube_name, rotation=[-90, 0, 0], translation=[self.building_width / 2, 0, 0])
         # transform cubes
         # place cubes in position
         pass
@@ -170,9 +175,11 @@ class Building():
 
 
 if "__main__" == __name__:
+    building1 = Building()
     # building1.building_height = 7
     # building1.generate_base()
     # building1.generate_levels()
     # w = BuildingWin()
     # w.show()
-    pass
+    building1.generate_windows()
+    building1.generate_building()
