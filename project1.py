@@ -155,6 +155,10 @@ class Building():
         return grp_name
 
     def generate_windows(self):
+        # determine amount of windows based on building_levels
+        # create cube
+        # transform cubes
+        # place cubes in position
         pass
 
     def _freeze_transforms(self, obj):
