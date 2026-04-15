@@ -25,6 +25,8 @@ class BuildingWin(QtWidgets.QDialog):
         self.building.building_height = self.building_height_dspnbx.value()
         self.building.building_levels = self.building_levels_slider.value()
         self.building.building_width = self.building_width_dspnbx.value()
+        self.building.building_length = self.building_length_dspnbx.value()
+        self.building.building_length = self.building_length_dspnbx.value()
         self.building.generate_building()
 
     def _connect_signals(self):
@@ -38,6 +40,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.main_layout = QtWidgets.QVBoxLayout()  # Creates our vertical box layout.
         self._mk_building_height_ui()
         self._mk_building_width_ui()
+        self._mk_building_length_ui()
         self._mk_building_levels_ui()
         self._mk_buttons_layout()
         self.setLayout(self.main_layout)
@@ -76,11 +79,21 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_width_layout = QtWidgets.QHBoxLayout()
         self.building_width_lbl = QtWidgets.QLabel("Building Width")
         self.building_width_dspnbx = QtWidgets.QDoubleSpinBox()
-        self.building_width_dspnbx.setMinimumWidth(50)
+        self.building_width_dspnbx.setMinimumWidth(20)
         self.building_width_dspnbx.setValue(3.0)
         self.building_width_dspnbx.setSingleStep(1.0)
         self.building_width_layout.addWidget(self.building_width_lbl)
         self.building_width_layout.addWidget(self.building_width_dspnbx)
+        self.main_layout.addLayout(self.building_width_layout)
+
+    def _mk_building_length_ui(self):
+        self.building_length_layout = QtWidgets.QHBoxLayout()
+        self.building_length_lbl = QtWidgets.QLabel("Building Length")
+        self.building_length_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.building_length_dspnbx.setValue(5.0)
+        self.building_length_dspnbx.setSingleStep(1.0)
+        self.building_length_layout.addWidget(self.building_length_lbl)
+        self.building_length_layout.addWidget(self.building_length_dspnbx)
         self.main_layout.addLayout(self.building_width_layout)
 
     def _mk_buttons_layout(self):
