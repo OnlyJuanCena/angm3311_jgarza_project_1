@@ -24,6 +24,7 @@ class BuildingWin(QtWidgets.QDialog):
     def build_building(self):
         self.building.building_height = self.building_height_dspnbx.value()
         self.building.building_levels = self.building_levels_slider.value()
+        self.building.building_width = self.building_width_dspnbx.value()
         self.building.generate_building()
 
     def _connect_signals(self):
