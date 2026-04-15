@@ -94,7 +94,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_length_dspnbx.setSingleStep(1.0)
         self.building_length_layout.addWidget(self.building_length_lbl)
         self.building_length_layout.addWidget(self.building_length_dspnbx)
-        self.main_layout.addLayout(self.building_width_layout)
+        self.main_layout.addLayout(self.building_length_layout)
 
     def _mk_buttons_layout(self):
         self.build_btn = QtWidgets.QPushButton("Build")
