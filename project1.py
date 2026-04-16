@@ -156,12 +156,20 @@ class Building():
 
     def generate_windows(self):
         # create cubes
-    # for window in range(self.building_levels):
-        cube_name = cmds.polyCube(height=0.3,
+        # for window in range(self.building_levels):
+        window_height = self.building_height / 4
+        cube_name = cmds.polyCube(height=window_height,
                                   depth=self.building_height / self.building_levels,
                                   width=0.3,
-                                  name="cube")[0]
-        cmds.xform(cube_name, rotation=[-90, 0, 0], translation=[self.building_width / 2, 0, 0])
+                                  name="window")[0]
+        cmds.xform(cube_name, translation=[0, window_height / 4, 0])
+        self._freeze_transforms(cube_name)
+        self._set_pivot_to_origin(cube_name)
+
+        cmds.xform(cube_name, translation=[self.building_width / 2,  # move to the wall
+                                           window_height,  # move up the wall
+                                           0])
+
         # transform cubes
         # place cubes in position
         pass
@@ -182,4 +190,4 @@ if "__main__" == __name__:
     # w = BuildingWin()
     # w.show()
     building1.generate_windows()
-    building1.generate_building()
+    # building1.generate_building()
