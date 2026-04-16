@@ -115,6 +115,7 @@ class Building():
         grp_objs = []
         grp_objs.append(self.generate_base())
         grp_objs.append(self.generate_levels())
+        grp_objs.append(self.generate_windows())
         bldg_grp = cmds.group(grp_objs, name="building")
         print(bldg_grp)
         self._set_pivot_to_origin(bldg_grp)
@@ -158,21 +159,21 @@ class Building():
         # create cubes
         # for window in range(self.building_levels):
         window_height = self.building_height / 4
-        cube_name = cmds.polyCube(height=window_height,
-                                  depth=self.building_height / self.building_levels,
-                                  width=0.3,
-                                  name="window")[0]
-        cmds.xform(cube_name, translation=[0, window_height / 4, 0])
-        self._freeze_transforms(cube_name)
-        self._set_pivot_to_origin(cube_name)
+        window_name = cmds.polyCube(height=window_height,
+                                    depth=self.building_height / self.building_levels,
+                                    width=0.3,
+                                    name="window")[0]
+        cmds.xform(window_name, translation=[0, window_height / 2, 0])
+        self._freeze_transforms(window_name)
+        self._set_pivot_to_origin(window_name)
 
-        cmds.xform(cube_name, translation=[self.building_width / 2,  # move to the wall
-                                           window_height,  # move up the wall
-                                           0])
+        cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
+                                             window_height - window_height / 4,  # move up the wall
+                                             0])
 
         # transform cubes
         # place cubes in position
-        pass
+        return window_name
 
     def _freeze_transforms(self, obj):
         cmds.makeIdentity(obj, apply=True, translate=True, rotate=True,
