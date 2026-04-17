@@ -165,23 +165,31 @@ class Building():
 
     def generate_windows(self):
         # create cubes
-        # for window in range(self.building_levels):
         window_height = self.building_height / 4
-        window_name = cmds.polyCube(height=window_height,
-                                    depth=self.building_length / self.window_width_mult,
-                                    width=0.3,
-                                    name="window")[0]
-        cmds.xform(window_name, translation=[0, window_height / 2, 0])
-        self._freeze_transforms(window_name)
-        self._set_pivot_to_origin(window_name)
+        window_y = window_height - window_height / 5
+        window_names = []
+        for window in range(2):
+            window_name = cmds.polyCube(height=window_height,
+                                        depth=self.building_length / self.window_width_mult,
+                                        width=0.3,
+                                        name="window")[0]
+            cmds.xform(window_name, translation=[0, window_height / 2, 0])
+            self._freeze_transforms(window_name)
+            self._set_pivot_to_origin(window_name)
 
-        cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
-                                             window_height - window_height / 5,  # move up the wall
-                                             0])
+            if is_odd(window):
+                cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
+                           window_y,  # move up the wall
+                           0])
+            else:
+                cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
+                           window_y * 2.5,  # move up the wall
+                           0])
+            window_names.append(window_name)
 
         # transform cubes
         # place cubes in position
-        return window_name
+        return window_names
 
     def _freeze_transforms(self, obj):
         cmds.makeIdentity(obj, apply=True, translate=True, rotate=True,
