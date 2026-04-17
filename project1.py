@@ -192,6 +192,7 @@ class Building():
                                    side_z])
                     window_names.append(window_name)
                 side_x *= -1
+                side_z *= -1
             y_rotate = 90
             side_x = 0
             side_z = self.building_length / 2
