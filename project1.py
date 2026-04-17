@@ -140,7 +140,7 @@ class Building():
             cube_name = cmds.polyCube(height=levels_height,
                                       depth=self.building_length + 0.5,
                                       width=self.building_width + 0.5,
-                                      name="cube")[0]
+                                      name="level")[0]
             cmds.xform(cube_name, translation=[0, levels_height / 2.0, 0])
             self._freeze_transforms(cube_name)
             self._set_pivot_to_origin(cube_name)
