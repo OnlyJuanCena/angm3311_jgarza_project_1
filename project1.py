@@ -167,28 +167,28 @@ class Building():
         # create cubes
         window_height = self.building_height / 4
         window_y = window_height - window_height / 5
+        side_x = self.building_width / 2
         window_names = []
-        for window in range(2):
-            window_name = cmds.polyCube(height=window_height,
-                                        depth=self.building_length / self.window_width_mult,
-                                        width=0.3,
-                                        name="window")[0]
-            cmds.xform(window_name, translation=[0, window_height / 2, 0])
-            self._freeze_transforms(window_name)
-            self._set_pivot_to_origin(window_name)
+        for side in range(2):
+            for window in range(2):
+                window_name = cmds.polyCube(height=window_height,
+                                            depth=self.building_length / self.window_width_mult,
+                                            width=0.3,
+                                            name="window")[0]
+                cmds.xform(window_name, translation=[0, window_height / 2, 0])
+                self._freeze_transforms(window_name)
+                self._set_pivot_to_origin(window_name)
 
-            if is_odd(window):
-                cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
-                           window_y,  # move up the wall
-                           0])
-            else:
-                cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
-                           window_y * 3.5,  # move up the wall
-                           0])
-            window_names.append(window_name)
-
-        # transform cubes
-        # place cubes in position
+                if is_odd(window):
+                    cmds.xform(window_name, translation=[side_x,  # move to the wall
+                               window_y,  # move up the wall
+                               0])
+                else:
+                    cmds.xform(window_name, translation=[side_x,  # move to the wall
+                               window_y * 3.5,  # move up the wall
+                               0])
+                window_names.append(window_name)
+            side_x *= -1
 
         grp_name = cmds.group(window_names, name="windows")
         self._set_pivot_to_origin(grp_name)
