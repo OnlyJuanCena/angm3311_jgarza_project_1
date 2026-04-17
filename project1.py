@@ -183,7 +183,7 @@ class Building():
                            0])
             else:
                 cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
-                           window_y * 4,  # move up the wall
+                           window_y * 3.5,  # move up the wall
                            0])
             window_names.append(window_name)
 
