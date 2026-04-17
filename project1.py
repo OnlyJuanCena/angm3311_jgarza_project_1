@@ -183,13 +183,16 @@ class Building():
                            0])
             else:
                 cmds.xform(window_name, translation=[self.building_width / 2,  # move to the wall
-                           window_y * 2.5,  # move up the wall
+                           window_y * 4,  # move up the wall
                            0])
             window_names.append(window_name)
 
         # transform cubes
         # place cubes in position
-        return window_names
+
+        grp_name = cmds.group(window_names, name="windows")
+        self._set_pivot_to_origin(grp_name)
+        return grp_name
 
     def _freeze_transforms(self, obj):
         cmds.makeIdentity(obj, apply=True, translate=True, rotate=True,
