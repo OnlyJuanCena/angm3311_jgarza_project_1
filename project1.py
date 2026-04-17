@@ -11,6 +11,13 @@ def get_maya_main_win():
     wrapInstance(int(main_win_addr), QtWidgets.QWidget)
 
 
+def is_odd(number):
+    if number % 2 == 0:
+        return False
+    else:
+        return True
+
+
 class BuildingWin(QtWidgets.QDialog):
 
     def __init__(self):
