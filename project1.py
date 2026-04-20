@@ -2,6 +2,7 @@ import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
 from shiboken6 import wrapInstance
+import random
 
 
 def get_maya_main_win():
@@ -27,6 +28,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building.building_length = self.building_length_dspnbx.value()
         self.building.building_length = self.building_length_dspnbx.value()
         self.building.windows = self.window_checkbox.isChecked()
+        self.building.random_windows = self.rndm_windows_checkbox.isChecked()
         self.building.generate_building()
 
     def _connect_signals(self):
@@ -127,7 +129,7 @@ class Building():
     building_levels = 3
     window_width_mult = 1.2
     windows = True
-    random_windows = True
+    random_windows = None
 
     def generate_building(self):
         grp_objs = []
@@ -188,6 +190,12 @@ class Building():
         for face in range(2):
             for side in range(2):
                 for window in range(2):
+                    window_chance = random.randint(1, 10)
+                    if self.random_windows:
+                        if window_chance <= 8:
+                            print(window_chance)
+                            continue
+
                     window_name = cmds.polyCube(height=window_height,
                                                 depth=window_width,
                                                 width=0.3,
