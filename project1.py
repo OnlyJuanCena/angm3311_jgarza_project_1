@@ -103,8 +103,13 @@ class BuildingWin(QtWidgets.QDialog):
         self.window_checkbox = QtWidgets.QCheckBox()
         self.window_checkbox_lbl = QtWidgets.QLabel("Windows")
 
+        self.rndm_windows_checkbox = QtWidgets.QCheckBox()
+        self.rndm_windows_checkbox_lbl = QtWidgets.QLabel("Random Windows")
+
         self.building_checkbox_layout.addWidget(self.window_checkbox_lbl)
         self.building_checkbox_layout.addWidget(self.window_checkbox)
+        self.building_checkbox_layout.addWidget(self.rndm_windows_checkbox_lbl)
+        self.building_checkbox_layout.addWidget(self.rndm_windows_checkbox)
         self.main_layout.addLayout(self.building_checkbox_layout)
 
     def _mk_buttons_layout(self):
@@ -122,6 +127,7 @@ class Building():
     building_levels = 3
     window_width_mult = 1.2
     windows = True
+    random_windows = True
 
     def generate_building(self):
         grp_objs = []
