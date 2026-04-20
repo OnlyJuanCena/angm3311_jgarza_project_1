@@ -190,10 +190,8 @@ class Building():
         for face in range(2):
             for side in range(2):
                 for window in range(2):
-                    window_chance = random.randint(1, 10)
-                    if self.random_windows:
-                        if window_chance <= 8:
-                            print(window_chance)
+                    if self.random_windows is True:
+                        if random.randint(1, 10) <= 8:
                             continue
 
                     window_name = cmds.polyCube(height=window_height,
