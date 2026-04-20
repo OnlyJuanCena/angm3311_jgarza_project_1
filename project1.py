@@ -33,6 +33,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building.building_width = self.building_width_dspnbx.value()
         self.building.building_length = self.building_length_dspnbx.value()
         self.building.building_length = self.building_length_dspnbx.value()
+        self.building.windows = self.window_checkbox.isChecked()
         self.building.generate_building()
 
     def _connect_signals(self):
@@ -106,11 +107,11 @@ class BuildingWin(QtWidgets.QDialog):
     def _mk_checkboxes_ui(self):
         self.building_checkbox_layout = QtWidgets.QHBoxLayout()
 
-        self.window_option = QtWidgets.QCheckBox()
-        self.window_option_lbl = QtWidgets.QLabel("Windows")
+        self.window_checkbox = QtWidgets.QCheckBox()
+        self.window_checkbox_lbl = QtWidgets.QLabel("Windows")
 
-        self.building_checkbox_layout.addWidget(self.window_option_lbl)
-        self.building_checkbox_layout.addWidget(self.window_option)
+        self.building_checkbox_layout.addWidget(self.window_checkbox_lbl)
+        self.building_checkbox_layout.addWidget(self.window_checkbox)
         self.main_layout.addLayout(self.building_checkbox_layout)
 
     def _mk_buttons_layout(self):
