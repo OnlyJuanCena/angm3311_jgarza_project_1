@@ -2,7 +2,6 @@ import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
 from shiboken6 import wrapInstance
-import random
 
 
 def get_maya_main_win():
@@ -49,6 +48,7 @@ class BuildingWin(QtWidgets.QDialog):
         self._mk_building_width_ui()
         self._mk_building_length_ui()
         self._mk_building_levels_ui()
+        self._mk_checkboxes_ui()
         self._mk_buttons_layout()
         self.setLayout(self.main_layout)
 
@@ -103,6 +103,16 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_length_layout.addWidget(self.building_length_dspnbx)
         self.main_layout.addLayout(self.building_length_layout)
 
+    def _mk_checkboxes_ui(self):
+        self.building_checkbox_layout = QtWidgets.QHBoxLayout()
+
+        self.window_option = QtWidgets.QCheckBox()
+        self.window_option_lbl = QtWidgets.QLabel("Windows")
+
+        self.building_checkbox_layout.addWidget(self.window_option_lbl)
+        self.building_checkbox_layout.addWidget(self.window_option)
+        self.main_layout.addLayout(self.building_checkbox_layout)
+
     def _mk_buttons_layout(self):
         self.build_btn = QtWidgets.QPushButton("Build")
         self.cancel_btn = QtWidgets.QPushButton("Cancel")
@@ -117,12 +127,14 @@ class Building():
     building_length = 5
     building_levels = 3
     window_width_mult = 1.2
+    windows = True
 
     def generate_building(self):
         grp_objs = []
         grp_objs.append(self.generate_base())
         grp_objs.append(self.generate_levels())
-        grp_objs.append(self.generate_windows())
+        if self.windows:
+            grp_objs.append(self.generate_windows())
         bldg_grp = cmds.group(grp_objs, name="building")
         print(bldg_grp)
         self._set_pivot_to_origin(bldg_grp)
