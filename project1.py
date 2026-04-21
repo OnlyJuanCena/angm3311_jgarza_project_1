@@ -28,6 +28,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building.building_length = self.building_length_dspnbx.value()
         self.building.windows = self.window_checkbox.isChecked()
         self.building.random_windows = self.rndm_windows_checkbox.isChecked()
+        self.building.window_width_mult = self.window_size_dspnbx.value()
         self.building.generate_building()
 
     def _connect_signals(self):
