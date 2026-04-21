@@ -44,7 +44,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.window_checkbox.stateChanged.connect(self.rndm_windows_checkbox.setChecked)
 
     def _mk_main_layout(self):
-        self.main_layout = QtWidgets.QVBoxLayout()  # Creates our vertical box layout.
+        self.main_layout = QtWidgets.QVBoxLayout()
         self._mk_building_height_ui()
         self._mk_building_width_ui()
         self._mk_building_length_ui()
@@ -267,11 +267,4 @@ class Building():
 
 
 if "__main__" == __name__:
-    building1 = Building()
-    # building1.building_height = 7
-    # building1.generate_base()
-    # building1.generate_levels()
-    w = BuildingWin()
-    w.show()
-    # building1.generate_windows()
-    # building1.generate_building()
+    pass
