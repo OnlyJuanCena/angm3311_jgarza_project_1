@@ -48,6 +48,7 @@ class BuildingWin(QtWidgets.QDialog):
         self._mk_building_length_ui()
         self._mk_building_levels_ui()
         self._mk_checkboxes_ui()
+        self._mk_window_size_ui()
         self._mk_buttons_layout()
         self.setLayout(self.main_layout)
 
@@ -79,7 +80,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_height_dspnbx.setSingleStep(1.0)
         self.building_height_layout.addWidget(self.building_height_lbl)
         self.building_height_layout.addWidget(self.building_height_dspnbx)
-        self.main_layout.addLayout(self.building_height_layout)  # Directs the Dialog Window to use the main layout
+        self.main_layout.addLayout(self.building_height_layout)
 
     def _mk_building_width_ui(self):
         self.building_width_layout = QtWidgets.QHBoxLayout()
@@ -101,6 +102,17 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_length_layout.addWidget(self.building_length_lbl)
         self.building_length_layout.addWidget(self.building_length_dspnbx)
         self.main_layout.addLayout(self.building_length_layout)
+
+    def _mk_window_size_ui(self):
+        self.window_size_layout = QtWidgets.QHBoxLayout()
+        self.window_size_lbl = QtWidgets.QLabel("Window Width")
+        self.window_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.window_size_dspnbx.setMinimumWidth(50)
+        self.window_size_dspnbx.setValue(5.0)
+        self.window_size_dspnbx.setSingleStep(1.0)
+        self.window_size_layout.addWidget(self.window_size_lbl)
+        self.window_size_layout.addWidget(self.window_size_dspnbx)
+        self.main_layout.addLayout(self.window_size_layout)
 
     def _mk_checkboxes_ui(self):
         self.building_checkbox_layout = QtWidgets.QHBoxLayout()
