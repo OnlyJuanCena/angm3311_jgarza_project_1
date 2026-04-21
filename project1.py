@@ -38,6 +38,8 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_levels_slider.valueChanged.connect(self.building_levels_slider_lbl.setValue)
         self.building_levels_slider_lbl.valueChanged.connect(self.building_levels_slider.setValue)
 
+        self.window_checkbox.stateChanged.connect(self.rndm_windows_checkbox.setChecked)
+
     def _mk_main_layout(self):
         self.main_layout = QtWidgets.QVBoxLayout()  # Creates our vertical box layout.
         self._mk_building_height_ui()
@@ -190,8 +192,9 @@ class Building():
         for face in range(2):
             for side in range(2):
                 for window in range(2):
+
                     if self.random_windows is True:
-                        if random.randint(1, 10) <= 8:
+                        if random.randint(1, 10) <= 6:
                             continue
 
                     window_name = cmds.polyCube(height=window_height,
