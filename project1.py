@@ -1,5 +1,3 @@
-from numpy import delete
-
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
@@ -19,7 +17,6 @@ class BuildingWin(QtWidgets.QDialog):
         super().__init__(parent=get_maya_main_win())
         self.building = Building()
         self.setWindowTitle("Building Generator")
-        # self.resize(500, 200)
         self._mk_main_layout()
         self._connect_signals()
 
@@ -140,11 +137,7 @@ class Building():
     recent_building = ""
 
     def delete_building(self):
-        # get name of most recent building
         cmds.delete(self.recent_building)
-
-        # delete building
-        pass
 
     def generate_building(self):
         grp_objs = []
