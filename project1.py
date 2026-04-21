@@ -16,6 +16,7 @@ class BuildingWin(QtWidgets.QDialog):
     def __init__(self):
         super().__init__(parent=get_maya_main_win())
         self.building = Building()
+        self.resize(300, 200)
         self.setWindowTitle("Building Generator")
         self._mk_main_layout()
         self._connect_signals()
