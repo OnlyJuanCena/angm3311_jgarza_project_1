@@ -204,7 +204,7 @@ class Building():
 
                     window_name = cmds.polyCube(height=window_height,
                                                 depth=window_width,
-                                                width=0.3,
+                                                width=0.1,
                                                 name="window")[0]
                     cmds.xform(window_name, rotation=[0, y_rotate, 0], translation=[0, window_height / 2, 0])
                     self._freeze_transforms(window_name)
