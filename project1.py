@@ -1,3 +1,5 @@
+from numpy import delete
+
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
@@ -133,6 +135,12 @@ class Building():
     windows = True
     random_windows = None
 
+    def delete_building():
+        # get name of most recent building
+
+        # delete building
+        pass
+
     def generate_building(self):
         grp_objs = []
         grp_objs.append(self.generate_base())
@@ -142,6 +150,7 @@ class Building():
         bldg_grp = cmds.group(grp_objs, name="building")
         print(bldg_grp)
         self._set_pivot_to_origin(bldg_grp)
+        return bldg_grp
 
     def generate_base(self):
         building_name = cmds.polyCube(height=self.building_height,
