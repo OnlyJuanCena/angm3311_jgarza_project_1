@@ -160,6 +160,7 @@ class Building():
     def delete_all(self):
         for building in self.building_list:
             cmds.delete(building)
+        self.building_list = []
 
     def generate_building(self):
         self.recent_building = ""
