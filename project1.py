@@ -110,7 +110,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.window_size_dspnbx = QtWidgets.QDoubleSpinBox()
         self.window_size_dspnbx.setMinimumWidth(50)
         self.window_size_dspnbx.setValue(5.0)
-        self.window_size_dspnbx.setSingleStep(1.0)
+        self.window_size_dspnbx.setSingleStep(0.5)
         self.window_size_layout.addWidget(self.window_size_lbl)
         self.window_size_layout.addWidget(self.window_size_dspnbx)
         self.main_layout.addLayout(self.window_size_layout)
