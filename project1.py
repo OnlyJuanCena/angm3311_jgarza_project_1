@@ -1,5 +1,3 @@
-from numpy import number
-
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
@@ -35,6 +33,7 @@ class BuildingWin(QtWidgets.QDialog):
     def _connect_signals(self):
         self.build_btn.clicked.connect(self.build_building)
         self.delete_btn.clicked.connect(self.building.delete_building)
+        self.delete_all_btn.clicked.connect(self.building.delete_all)
         self.cancel_btn.clicked.connect(self.close)
 
         self.building_levels_slider.valueChanged.connect(self.building_levels_slider_lbl.setValue)
@@ -122,8 +121,10 @@ class BuildingWin(QtWidgets.QDialog):
         self.build_btn = QtWidgets.QPushButton("Build")
         self.cancel_btn = QtWidgets.QPushButton("Cancel")
         self.delete_btn = QtWidgets.QPushButton("Delete Building")
+        self.delete_all_btn = QtWidgets.QPushButton("Delete All")
         self.main_layout.addWidget(self.build_btn)
         self.main_layout.addWidget(self.delete_btn)
+        self.main_layout.addWidget(self.delete_all_btn)
         self.main_layout.addWidget(self.cancel_btn)
 
 
@@ -137,11 +138,14 @@ class Building():
     windows = True
     random_windows = None
     recent_building = ""
+    building_list = []
 
     def delete_building(self):
         cmds.delete(self.recent_building)
-        if self.recent_building[-1] >= "1":
-            print(self.recent_building)
+
+    def delete_all(self):
+        for building in self.building_list:
+            cmds.delete(building)
 
     def generate_building(self):
         self.recent_building = ""
@@ -152,7 +156,9 @@ class Building():
             grp_objs.append(self.generate_windows())
         bldg_grp = cmds.group(grp_objs, name="building")
         self._set_pivot_to_origin(bldg_grp)
+
         self.recent_building = bldg_grp
+        self.building_list.append(self.recent_building)
 
     def generate_base(self):
         building_name = cmds.polyCube(height=self.building_height,
