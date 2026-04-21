@@ -138,6 +138,7 @@ class Building():
     def delete_building():
         # get name of most recent building
 
+
         # delete building
         pass
 
@@ -145,10 +146,9 @@ class Building():
         grp_objs = []
         grp_objs.append(self.generate_base())
         grp_objs.append(self.generate_levels())
-        if self.windows:
+        if self.windows is True:
             grp_objs.append(self.generate_windows())
         bldg_grp = cmds.group(grp_objs, name="building")
-        print(bldg_grp)
         self._set_pivot_to_origin(bldg_grp)
         return bldg_grp
 
