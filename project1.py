@@ -179,7 +179,6 @@ class Building():
             return grp_name
 
     def generate_windows(self):
-        # create cubes
         window_height = self.building_height / 4
         window_width = self.building_length / self.window_width_mult
         window_y = window_height - window_height / 5
@@ -209,11 +208,14 @@ class Building():
                                window_y,  # move up the wall
                                z_side])
 
+                    # alternate height
                     window_names.append(window_name)
                     window_y *= 3.5
-                window_y = window_height - window_height / 5  # reset window_y
+                # alternate side
+                window_y = window_height - window_height / 5
                 x_side *= -1
                 z_side *= -1
+            # alternate face
             y_rotate = 90
             x_side = 0
             z_side = self.building_length / 2
