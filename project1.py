@@ -35,6 +35,7 @@ class BuildingWin(QtWidgets.QDialog):
 
     def _connect_signals(self):
         self.build_btn.clicked.connect(self.build_building)
+        self.delete_btn.clicked.connect(self.building.delete_building)
         self.cancel_btn.clicked.connect(self.close)
 
         self.building_levels_slider.valueChanged.connect(self.building_levels_slider_lbl.setValue)
@@ -121,8 +122,10 @@ class BuildingWin(QtWidgets.QDialog):
     def _mk_buttons_layout(self):
         self.build_btn = QtWidgets.QPushButton("Build")
         self.cancel_btn = QtWidgets.QPushButton("Cancel")
-        self.main_layout.addWidget(self.build_btn)  # Adds the build button into one of the rows in the vertical layout
-        self.main_layout.addWidget(self.cancel_btn)  # Adds the build button into one of the rows in the vertical layout
+        self.delete_btn = QtWidgets.QPushButton("Delete Building")
+        self.main_layout.addWidget(self.build_btn)
+        self.main_layout.addWidget(self.delete_btn)
+        self.main_layout.addWidget(self.cancel_btn)
 
 
 class Building():
@@ -134,10 +137,11 @@ class Building():
     window_width_mult = 1.2
     windows = True
     random_windows = None
+    recent_building = ""
 
-    def delete_building():
+    def delete_building(self):
         # get name of most recent building
-
+        cmds.delete(self.recent_building)
 
         # delete building
         pass
@@ -150,7 +154,7 @@ class Building():
             grp_objs.append(self.generate_windows())
         bldg_grp = cmds.group(grp_objs, name="building")
         self._set_pivot_to_origin(bldg_grp)
-        return bldg_grp
+        self.recent_building = bldg_grp
 
     def generate_base(self):
         building_name = cmds.polyCube(height=self.building_height,
