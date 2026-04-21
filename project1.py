@@ -199,7 +199,7 @@ class Building():
                 for window in range(2):
 
                     if self.random_windows is True:
-                        if random.randint(1, 10) <= 6:
+                        if random.randint(1, 10) <= 7:
                             continue
 
                     window_name = cmds.polyCube(height=window_height,
