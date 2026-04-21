@@ -91,6 +91,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building_width_dspnbx.setMinimumWidth(20)
         self.building_width_dspnbx.setValue(3.0)
         self.building_width_dspnbx.setSingleStep(1.0)
+        self.building_width_dspnbx.setPrefix("1/")
         self.building_width_layout.addWidget(self.building_width_lbl)
         self.building_width_layout.addWidget(self.building_width_dspnbx)
         self.main_layout.addLayout(self.building_width_layout)
@@ -107,12 +108,13 @@ class BuildingWin(QtWidgets.QDialog):
 
     def _mk_window_size_ui(self):
         self.window_size_layout = QtWidgets.QHBoxLayout()
-        self.window_size_lbl = QtWidgets.QLabel("Window Width")
+        self.window_size_lbl = QtWidgets.QLabel("Window Width Mult")
         self.window_size_dspnbx = QtWidgets.QDoubleSpinBox()
         self.window_size_dspnbx.setMinimumWidth(50)
         self.window_size_dspnbx.setValue(5.0)
-        self.window_size_dspnbx.setSingleStep(0.5)
+        self.window_size_dspnbx.setSingleStep(1)
         self.window_size_dspnbx.setMaximum(10.0)
+        self.window_size_dspnbx.setMinimum(1.0)        
         self.window_size_layout.addWidget(self.window_size_lbl)
         self.window_size_layout.addWidget(self.window_size_dspnbx)
         self.main_layout.addLayout(self.window_size_layout)
@@ -214,7 +216,7 @@ class Building():
 
     def generate_windows(self):
         window_height = self.building_height / 4
-        window_width = self.building_length / self.window_width_mult
+        window_width = self.building_length * (1 / self.window_width_mult)
         window_y = window_height - window_height / 5
 
         x_side = self.building_width / 2
