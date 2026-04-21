@@ -114,7 +114,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.window_size_dspnbx.setSingleStep(1)
         self.window_size_dspnbx.setMaximum(10.0)
         self.window_size_dspnbx.setMinimum(1.0)
-        self.building_width_dspnbx.setPrefix("1/")      
+        self.window_size_dspnbx.setPrefix("1/")      
         self.window_size_layout.addWidget(self.window_size_lbl)
         self.window_size_layout.addWidget(self.window_size_dspnbx)
         self.main_layout.addLayout(self.window_size_layout)
