@@ -1,3 +1,5 @@
+from numpy import number
+
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 from PySide6 import QtWidgets, QtCore
@@ -138,8 +140,11 @@ class Building():
 
     def delete_building(self):
         cmds.delete(self.recent_building)
+        if self.recent_building[-1] >= "1":
+            print(self.recent_building)
 
     def generate_building(self):
+        self.recent_building = ""
         grp_objs = []
         grp_objs.append(self.generate_base())
         grp_objs.append(self.generate_levels())
@@ -198,8 +203,9 @@ class Building():
             for side in range(2):
                 for window in range(2):
 
+                    # chance of window not generating
                     if self.random_windows is True:
-                        if random.randint(1, 10) <= 8:
+                        if random.randint(1, 10) <= 4:
                             continue
 
                     window_name = cmds.polyCube(height=window_height,
