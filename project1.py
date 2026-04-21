@@ -112,6 +112,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.window_size_dspnbx.setMinimumWidth(50)
         self.window_size_dspnbx.setValue(5.0)
         self.window_size_dspnbx.setSingleStep(0.5)
+        self.window_size_dspnbx.setMaximum(10.0)
         self.window_size_layout.addWidget(self.window_size_lbl)
         self.window_size_layout.addWidget(self.window_size_dspnbx)
         self.main_layout.addLayout(self.window_size_layout)
@@ -121,6 +122,7 @@ class BuildingWin(QtWidgets.QDialog):
 
         self.window_checkbox = QtWidgets.QCheckBox()
         self.window_checkbox_lbl = QtWidgets.QLabel("Windows")
+        self.window_checkbox.setChecked(True)
 
         self.rndm_windows_checkbox = QtWidgets.QCheckBox()
         self.rndm_windows_checkbox_lbl = QtWidgets.QLabel("Random Windows")
