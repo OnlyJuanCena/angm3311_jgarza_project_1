@@ -18,6 +18,7 @@ class BuildingWin(QtWidgets.QDialog):
         self.building = Building()
         self.resize(300, 200)
         self.setWindowTitle("Building Generator")
+        self.setWindowFlags(QtCore.Qt.Tool)
         self._mk_main_layout()
         self._connect_signals()
 
@@ -238,7 +239,8 @@ class Building():
                                                 depth=window_width,
                                                 width=0.1,
                                                 name="window")[0]
-                    cmds.xform(window_name, rotation=[0, y_rotate, 0], translation=[0, window_height / 2, 0])
+                    cmds.xform(window_name, rotation=[0, y_rotate, 0], 
+                               translation=[0, window_height / 2, 0])
                     self._freeze_transforms(window_name)
                     self._set_pivot_to_origin(window_name)
 
@@ -272,4 +274,5 @@ class Building():
 
 
 if "__main__" == __name__:
-    pass
+    w = BuildingWin
+    w.show()
